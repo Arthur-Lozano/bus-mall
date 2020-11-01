@@ -69,10 +69,10 @@ function populateRenderQue() {
     rendQue.push(imageIndex);
   }
 }
-populateRenderQue();
 console.log(rendQue);
 
 function showMe() {
+  populateRenderQue();
   var firstImage = rendQue[0];
   var secondImage = rendQue[1];
   var thirdImage = rendQue[2];
@@ -114,7 +114,7 @@ function handleClick(event) {
       variety[i].votes++;
     }
   }
-
+  showMe();
 
   if (currentClicks === maxClicks) {
     hoobsContainer.removeEventListener('click', handleClick);
