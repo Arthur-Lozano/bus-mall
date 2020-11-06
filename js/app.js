@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 // Globals
 
 var variety = [];
@@ -13,11 +11,11 @@ var imageElementTwo = document.getElementById('imageTwo');
 var imageElementThree = document.getElementById('imageThree');
 var hoobsList = document.getElementById('list');
 var rendQue = [];
+var ctx = document.getElementById('myChart').getContext('2d');
+var votesArr = [];
+var viewsArr = [];
+var namesArr = [];
 
-
-
-
-// Variables to store products
 
 
 // An Image array that is a property of my constructor
@@ -34,7 +32,7 @@ function giveThree() {
   return Math.floor(Math.random() * variety.length);
 }
 
-// Executable code
+// Executable code Instantiating new objects into the constructor function
 
 new Mall('bag');
 new Mall('banana');
@@ -59,32 +57,37 @@ new Mall('wine-glass');
 
 //Function worked correctly - console.log(giveThree());
 function populateRenderQue() {
-  rendQue = [];
-
-  while (rendQue.length < 3) {
+  //rendQue = [];
+  // while (rendQue.length > 3) { //Update your algorithm so that new products are generated, confirm that these products are not duplicates from the immediate previous set.
+  //   rendQue.shift();
+  // }
+  while (rendQue.length < 6) {
     var imageIndex = giveThree();
     while (rendQue.includes(imageIndex)) {
       imageIndex = giveThree();
     }
     rendQue.push(imageIndex);
   }
+  console.log('renderQue: ', rendQue);
 }
-console.log(rendQue);
 
 function showMe() {
   populateRenderQue();
-  var firstImage = rendQue[0];
-  var secondImage = rendQue[1];
-  var thirdImage = rendQue[2];
+  //var firstImage = rendQue[0];//put in for loop and use shift and assign to temp var 
+  var firstImage = rendQue.shift();
+  var secondImage = rendQue.shift();
+  var thirdImage = rendQue.shift();//assign rendQue to array
 
-  console.log(firstImage);
+  console.log('RendQue', rendQue);
   imageElementOne.src = variety[firstImage].src;
   imageElementOne.alt = variety[firstImage].name;
   variety[firstImage].views++;
 
+
   imageElementTwo.src = variety[secondImage].src;
   imageElementTwo.alt = variety[secondImage].name;
   variety[secondImage].views++;
+
 
   imageElementThree.src = variety[thirdImage].src;
   imageElementThree.alt = variety[thirdImage].name;
@@ -119,9 +122,57 @@ function handleClick(event) {
   if (currentClicks === maxClicks) {
     hoobsContainer.removeEventListener('click', handleClick);
     renderResults();
+    getChart();
   }
 }
 
+function getData() {
+  for (var i = 0; i < variety.length; i++) {
+    votesArr.push(variety[i].votes);
+    viewsArr.push(variety[i].views);
+    namesArr.push(variety[i].name);
+  }
+}
 
+function getChart() {
+  getData();
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: namesArr,
+      datasets: [{
+        label: '# of Views',
+        data: viewsArr, 
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }],
+
+      }
+    }
+  });
+}
 
 hoobsContainer.addEventListener('click', handleClick);
