@@ -55,7 +55,7 @@ new Mall('usb');
 new Mall('water-can');
 new Mall('wine-glass');
 
-//Function worked correctly - console.log(giveThree());
+
 function populateRenderQue() {
   //rendQue = [];
   // while (rendQue.length > 3) { //Update your algorithm so that new products are generated, confirm that these products are not duplicates from the immediate previous set.
@@ -68,7 +68,6 @@ function populateRenderQue() {
     }
     rendQue.push(imageIndex);
   }
-  console.log('renderQue: ', rendQue);
 }
 
 function showMe() {
@@ -132,6 +131,7 @@ function getData() {
     viewsArr.push(variety[i].views);
     namesArr.push(variety[i].name);
   }
+  console.log(votesArr);
 }
 
 function getChart() {
@@ -142,7 +142,7 @@ function getChart() {
       labels: namesArr,
       datasets: [{
         label: '# of Views',
-        data: viewsArr, 
+        data: viewsArr,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -158,6 +158,27 @@ function getChart() {
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
           'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# of Votes',
+        data: votesArr,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
         ],
         borderWidth: 1
       }]
