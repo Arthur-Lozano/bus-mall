@@ -27,33 +27,44 @@ function Mall(name) {
   variety.push(this);
 }
 
+
 // functions
 function giveThree() {
   return Math.floor(Math.random() * variety.length);
 }
 
-// Executable code Instantiating new objects into the constructor function
+// Data begins
 
-new Mall('bag');
-new Mall('banana');
-new Mall('bathroom');
-new Mall('boots');
-new Mall('breakfast');
-new Mall('bubblegum');
-new Mall('chair');
-new Mall('cthulhu');
-new Mall('dog-duck');
-new Mall('dragon');
-new Mall('pen');
-new Mall('pet-sweep');
-new Mall('scissors');
-new Mall('shark');
-new Mall('sweep');
-new Mall('tauntaun');
-new Mall('unicorn');
-new Mall('usb');
-new Mall('water-can');
-new Mall('wine-glass');
+var grabData = localStorage.getItem('productResults');
+if (grabData) {
+  var parsedGrabData = JSON.parse(grabData);
+  variety = parsedGrabData;
+} else {
+  //Do this
+  // Executable code Instantiating new objects into the constructor function
+  new Mall('bag');
+  new Mall('banana');
+  new Mall('bathroom');
+  new Mall('boots');
+  new Mall('breakfast');
+  new Mall('bubblegum');
+  new Mall('chair');
+  new Mall('cthulhu');
+  new Mall('dog-duck');
+  new Mall('dragon');
+  new Mall('pen');
+  new Mall('pet-sweep');
+  new Mall('scissors');
+  new Mall('shark');
+  new Mall('sweep');
+  new Mall('tauntaun');
+  new Mall('unicorn');
+  new Mall('usb');
+  new Mall('water-can');
+  new Mall('wine-glass');
+
+}
+
 
 
 function populateRenderQue() {
@@ -107,8 +118,11 @@ function renderResults() {
 showMe();
 //Event handler
 
+
+
+
 function handleClick(event) {
-  var clickedImage = event.target.alt;
+  var clickedImage = event.target.alt;//
   currentClicks++;
 
   for (var i = 0; i < variety.length; i++) {
@@ -122,6 +136,8 @@ function handleClick(event) {
     hoobsContainer.removeEventListener('click', handleClick);
     renderResults();
     getChart();
+    var stringResults = JSON.stringify(variety);
+    localStorage.setItem('ProductResults', stringResults);
   }
 }
 
