@@ -137,7 +137,7 @@ function handleClick(event) {
     renderResults();
     getChart();
     var stringResults = JSON.stringify(variety);
-    localStorage.setItem('ProductResults', stringResults);
+    localStorage.setItem('productResults', stringResults);
   }
 }
 
