@@ -2,11 +2,6 @@ h1, h2 , ul{
   text-align: center;
 }
 
-
-body {
-  background-color: rgba(4, 73, 50, .2);
-}
-
 section {
   width: 80%;
   margin: auto;
